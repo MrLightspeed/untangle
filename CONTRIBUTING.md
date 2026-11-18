@@ -6,9 +6,10 @@ existing issues before opening a new one.
 ## Discuss the change
 
 Use the bug report form for a reproducible problem, the help form for an
-installation or usage question, and the proposal form for an improvement. Remove
-credentials, private source, and identifying project details from examples. For
-a security concern, follow [the security policy](SECURITY.md).
+installation or usage question, and the proposal form for an improvement. Use
+the example form to share a wiring map or refactor that others can learn from.
+Remove credentials, private source, and identifying project details. For a
+security concern, follow [the security policy](SECURITY.md).
 
 Describe the problem and the smallest useful outcome. Wait for the maintainer to
 agree on scope before doing substantial implementation work. An issue starts a

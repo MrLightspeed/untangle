@@ -1,0 +1,31 @@
+name: Share an Untangle example
+description: Share a wiring map or refactor that others can learn from.
+title: "[Example]: "
+body:
+  - type: markdown
+    attributes:
+      value: >
+        Use an example you can share publicly. Check links, screenshots, and
+        attachments for private source, credentials, and identifying details.
+  - type: textarea
+    id: scope
+    attributes:
+      label: What did you map?
+      description: Name the feature or path and say what made it hard to follow.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: What did Untangle find or change?
+      description: >
+        Share one knot from the audit or explain what changed after refactoring.
+        A wiring diagram or link to public source is welcome.
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: What did you verify?
+      description:
+        If you changed code, list the checks you ran and their results.
