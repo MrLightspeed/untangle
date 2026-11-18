@@ -29,45 +29,23 @@ change. The final map compares the observed before and after states.
 
 ## Install
 
-Install only `skills/untangle`. The skill uses Git, an agent that supports Agent
-Skills, and Python for the renderer. See its
-[runtime requirements](skills/untangle/SKILL.md). The renderer uses Python's
-standard library, so there are no Python packages to install.
-
-In Codex, ask the skill installer to install Untangle:
-
-```text
-$skill-installer install https://github.com/MrLightspeed/untangle/tree/main/skills/untangle
-```
-
-`main` changes as development continues. Use a full commit SHA in the URL when
-you need a fixed source version. Check
-[releases](https://github.com/MrLightspeed/untangle/releases) for published
-versions. For manual installation, updates, and removal, see
-[installation](INSTALL.md).
-
-The optional Skills CLI installer uses Node.js and npm, or Bun. Run it from your
-project root. This example targets Codex:
+Run this in the project you want to untangle.
 
 ```sh
-npx skills@latest add MrLightspeed/untangle --skill untangle --agent codex --copy
+npx skills@latest add MrLightspeed/untangle --skill untangle --copy
 ```
 
-The same CLI supports Claude Code, Cursor, and GitHub Copilot. See
-[installation](INSTALL.md) for each target's command and first-use prompt, plus
-the Bun `bunx` option.
-
-Install the skill without running this repository's development setup. The
-package includes the instructions, renderer, references, agent metadata, and MIT
-license it needs. Your project keeps its own build and test tools.
+Choose your agent if prompted. Untangle uses Git and renders maps with Python
+3.13 or newer using the standard library. See the
+[installation guide](INSTALL.md) for Bun, agent-specific commands, manual setup,
+and fixed versions.
 
 ## Try Untangle
 
-In Codex, ask for a read-only audit when you want a map and recommendations:
+Open your agent in that project and ask for a map and recommendations.
 
 ```text
-Use $untangle to audit this repository. Map the features and rank the knots.
-Do not change code.
+Use Untangle to map this repository in read-only mode.
 ```
 
 Ask the agent to untangle the repository you are working in:

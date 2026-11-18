@@ -77,9 +77,15 @@ These commands install from the default branch into the current project. Add
 `--global` to install for your user account instead. Use one installation method
 to avoid duplicate skills, and preserve existing local edits before updating.
 
-To use Bun instead of npm, replace `npx` with `bunx` in the command for your
-agent. `--copy` installs a copy of the skill files. The host may need to reload
-its skills list before Untangle appears.
+If you use Bun, run the same installer from your project root.
+
+```sh
+bunx skills@latest add MrLightspeed/untangle --skill untangle --copy
+```
+
+Choose your agent if prompted, or add `--agent` with a target from the table.
+`--copy` installs a copy of the skill files. Reload your agent if Untangle does
+not appear.
 
 Codex prompts use `$untangle`; Claude Code supports `/untangle`. For Cursor and
 GitHub Copilot, ask in chat using the prompt above. See the host documentation
