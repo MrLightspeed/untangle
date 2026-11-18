@@ -135,7 +135,7 @@ No amount of diagram cleanliness establishes correctness. Edge reductions, cycle
 counts, duplication counts, and ownership consolidation explain the structural
 change; tests and contract inspection support preserved behavior.
 
-For unfamiliar language/framework APIs, look up the pinned version in current
-official documentation and reconcile it with installed types and repository
-conventions. Keep private code and identifiers out of external research queries.
-A failed source lookup is not permission to guess at consequential behavior.
+For unfamiliar language or framework APIs, identify the pinned version from the
+project's declarations and lockfile. Check behavior against local documentation,
+installed types and source, and existing tests. Record unresolved questions in
+the evidence and defer any change that depends on the answer.
