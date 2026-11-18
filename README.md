@@ -5,6 +5,7 @@
 [![CI: Bun only](assets/badges/ci.svg)](https://github.com/MrLightspeed/untangle/actions/workflows/check.yml)
 [![Latest GitHub release](https://img.shields.io/github/v/release/MrLightspeed/untangle?style=for-the-badge&labelColor=0b1220&color=c4b5fd)](https://github.com/MrLightspeed/untangle/releases)
 [![GitHub stars](https://img.shields.io/github/stars/MrLightspeed/untangle?style=for-the-badge&labelColor=0b1220&color=f5be78)](https://github.com/MrLightspeed/untangle/stargazers)
+[![Skills.sh install count](https://skills.sh/b/mrlightspeed/untangle)](https://www.skills.sh/mrlightspeed/untangle/untangle)
 [![Sponsor Untangle](assets/badges/sponsor.svg)](https://github.com/sponsors/MrLightspeed)
 
 Untangle helps coding agents untangle spaghetti code while preserving the
