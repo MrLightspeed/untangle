@@ -8,6 +8,7 @@ import importlib.util
 import json
 import subprocess
 import sys
+from html import escape
 from pathlib import Path
 
 sys.dont_write_bytecode = True
@@ -325,6 +326,105 @@ def run_behavior_checks(snapshot_roots: dict[str, Path], json_mode: bool) -> Non
         report(f"{snapshot_name}: {result_line}", json_mode)
 
 
+def render_checkout_preview(renderer, price_knot: dict, storage_knot: dict) -> str:
+    """Lay out the two checked checkout routes on a shared set of file positions."""
+    routes = (
+        (price_knot, "price-lookup", "#ffb779"),
+        (storage_knot, "read-pending-orders", "#78e4d4"),
+    )
+    positions = {
+        "quotes.py": (82, 155),
+        "catalog.py": (414, 155),
+        "history.py": (238, 215),
+        "orders.py": (260, 298),
+        "storage.py": (82, 370),
+        "reconcile.py": (414, 370),
+    }
+    # Layout for this fixture only. Keys bind geometry to actual handoffs.
+    wire_paths = {
+        ("quotes.py", "orders.py"): "M148 155 C377 144 387 239 290 276",
+        ("orders.py", "storage.py"): "M194 301 C166 301 159 324 130 348",
+        ("storage.py", "catalog.py"): "M148 374 C235 435 361 416 414 177",
+        ("storage.py", "history.py"): "M68 348 C68 268 110 213 172 215",
+        ("history.py", "orders.py"): "M220 237 C220 258 222 267 222 276",
+        ("orders.py", "reconcile.py"): "M326 301 C333 326 336 353 348 371",
+        ("quotes.py", "catalog.py"): "M148 155 H348",
+        ("storage.py", "reconcile.py"): "M148 370 H348",
+    }
+    text = renderer._svg_text
+    parts = [
+        '<svg xmlns="http://www.w3.org/2000/svg" width="1034" height="508" '
+        'viewBox="0 0 1034 508" role="img" aria-labelledby="title description">',
+        '<title id="title">Checkout wiring before and after</title>',
+        '<desc id="description">Quotes and pending orders each go from three '
+        'source handoffs to one. File positions stay fixed. '
+        'Storage now decodes JSON before sending order records to reconciliation.</desc>',
+        '<rect width="1034" height="508" rx="18" fill="#0b1220"/>',
+        text(27, 42, "Two checkout detours become direct", 29, "#f2f6fb", "700"),
+        '<defs>',
+    ]
+    for _, route_id, color in routes:
+        parts.append(
+            f'<marker id="{route_id}" viewBox="0 0 10 10" refX="9" refY="5" '
+            'markerWidth="3.7" markerHeight="3.7" orient="auto">'
+            f'<path d="M0 0 L10 5 L0 10 Z" fill="{color}"/></marker>'
+        )
+    parts.append('</defs>')
+
+    for phase, offset in (("before", 13), ("after", 521)):
+        parts.append(f'<g data-phase="{phase}" transform="translate({offset} 62)">')
+        parts.append('<rect width="500" height="407" rx="14" fill="#101c2d" stroke="#364a62"/>')
+        parts.append(text(20, 37, phase.title(), 26, "#f2f6fb", "700"))
+        active: dict[str, list[str]] = {}
+        for index, (knot, route_id, color) in enumerate(routes):
+            side = knot["comparison"][phase]
+            path = next(path for path in side["paths"] if path["id"] == route_id)
+            nodes = []
+            for node in renderer._path_nodes(path):
+                location = renderer._path_location(node, side)
+                owner = Path(side["snippets"][node["snippet"] - 1]["path"]).name
+                nodes.append(owner)
+                active.setdefault(owner, []).append(location)
+            value = path["value"]
+            count = len(nodes) - 1
+            unit = "handoff" if count == 1 else "handoffs"
+            legend = f'{path["label"]} · {value} · {count} {unit}'
+            parts.append(text(20, 70 + index * 25, legend, 18, color, "600"))
+            for source, target in zip(nodes, nodes[1:]):
+                geometry = wire_paths.get((source, target))
+                if geometry is None:
+                    fail(f"checkout preview has no layout for {source} to {target}")
+                parts.append(
+                    f'<path d="{geometry}" fill="none" stroke="#101c2d" stroke-width="11"/>'
+                )
+                parts.append(
+                    f'<path data-route="{route_id}" data-from="{escape(source)}" '
+                    f'data-to="{escape(target)}" d="{geometry}" fill="none" '
+                    f'stroke="{color}" stroke-width="4" marker-end="url(#{route_id})"/>'
+                )
+        for owner, (x, y) in positions.items():
+            refs = active.get(owner)
+            status = "On a shown route" if refs else "Outside the shown routes"
+            detail = ", ".join(refs) if refs else status
+            outline = '#7389a3' if refs else '#5e718a'
+            dash = '' if refs else ' stroke-dasharray="5 5"'
+            parts.extend([
+                f'<g data-file="{owner}"><title>{escape(detail)}</title>',
+                f'<rect x="{x - 66}" y="{y - 22}" width="132" height="44" rx="8" '
+                f'fill="#0b1220" stroke="{outline}"{dash}/>',
+                text(x, y + 6, owner, 18, "#f2f6fb" if refs else "#adbed2",
+                     "600", 'text-anchor="middle"'),
+                '</g>',
+            ])
+        if phase == "after":
+            parts.append(text(249, 261, "Dashed files are outside these routes", 15,
+                              "#adbed2", extra='text-anchor="middle"'))
+        parts.append('</g>')
+
+    parts.append(text(27, 490, "Storage now decodes the rows, so reconciliation receives order records.", 21))
+    return "\n".join([*parts, "</svg>"])
+
+
 class ContributorArgumentParser(argparse.ArgumentParser):
     def error(self, message: str) -> None:
         self.print_usage(sys.stderr)
@@ -400,6 +500,7 @@ def run_checks(args: argparse.Namespace) -> dict:
             "example-comparison.svg": renderer.render_svg(manifest) + "\n",
             "example-price-route.svg": renderer.render_path_comparison_svg(price_knot, "price-lookup") + "\n",
             "untangle-banner.svg": renderer.render_knot_routes_svg(storage_knot, ("read-pending-orders", "write-order")) + "\n",
+            "example-checkout-wiring.svg": render_checkout_preview(renderer, price_knot, storage_knot) + "\n",
         }
         for name, preview in previews.items():
             preview_path = ROOT / "assets" / name

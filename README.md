@@ -11,47 +11,49 @@ Untangle helps coding agents untangle spaghetti code while preserving the
 program's behavior. It maps the files behind a feature and records each accepted
 knot with source evidence, its concrete impact, and a proposed correction.
 
-![Untangle output for the checkout example. Before, quote reaches the catalog
-through orders and storage. After, quote calls the catalog directly. Three
-handoffs become one.](assets/example-price-route.svg)
-
-As an example, `quotes.py` used to pass the product ID through `orders.py` and
-`storage.py` to reach `catalog.py`. After the refactor, `quotes.py` calls the
-catalog directly. The two files still serve other features.
-[Open price route](assets/example-price-route.svg) ·
-[Before source](examples/checkout/before/src/quotes.py#L7) ·
-[After source](examples/checkout/after/src/quotes.py#L10)
-
-Start with a read-only audit to map a codebase and rank its knots. For an
-authorized refactor, the agent works through the knots on a local branch, saves
-a recoverable checkpoint, and runs the relevant tests and build after each
-change. The final map compares the observed before and after states.
-
 ## Install
 
-Run this in the project you want to untangle.
+With Node.js and npm installed, run this in your project's terminal.
 
 ```sh
-npx skills@latest add MrLightspeed/untangle --skill untangle --copy
+npx skills@latest add MrLightspeed/untangle
 ```
 
-Choose your agent if prompted. Untangle uses Git and renders maps with Python
-3.13 or newer using the standard library. See the
-[installation guide](INSTALL.md) for Bun, agent-specific commands, manual setup,
-and fixed versions.
+Choose your agent if prompted. The installer uses that agent's project skills
+directory. Untangle uses Git and needs Python 3.13 or newer to render maps. See
+the [installation guide](INSTALL.md) for Bun, native installers, and ways to pin
+a release.
 
 ## Try Untangle
 
-Open your agent in that project and ask for a map and recommendations.
+Open your agent in the same project and ask for a read-only audit.
 
 ```text
 Use Untangle to map this repository in read-only mode.
 ```
 
-Ask the agent to untangle the repository you are working in:
+Expect an HTML wiring map (`untangle.html`) and a ranked list of knots with
+source locations.
+
+### Before and after
+
+![Checkout wiring before and after. Price lookup and pending orders each go
+from three handoffs through helper files to one direct connection. Storage
+now sends order records to reconciliation.](assets/example-checkout-wiring.svg)
+
+As an example, Untangle traced two checkout paths through the bundled source.
+Quotes now call the catalog directly. Storage decodes rows before passing order
+records to reconciliation. The same behavior tests pass in both snapshots. See
+the [worked checkout example](examples/README.md) for the source and tests or
+open the [full wiring map](assets/example-comparison.svg).
+
+### Refactor with checkpoints
+
+When you're ready to change code, ask your agent to refactor with checks and
+recoverable checkpoints.
 
 ```text
-Use $untangle to map and untangle this repository. Rank the knots by their
+Use Untangle to map and untangle this repository. Rank the knots by their
 impact, preserve behavior, and verify each fix with the project's tests and
 build, or documented equivalents. Save a recoverable checkpoint before each
 change. Show the actual before/after wiring and explain which paths and
@@ -109,39 +111,7 @@ The renderer checks the manifest's structure and references. It does not inspect
 a repository or prove the agent's findings. Coverage limits and unresolved paths
 stay visible in the map.
 
-### Before and after
-
-![Two before-and-after routes from the checkout source. Pending orders used to
-pass from storage through history and orders as JSON bytes. After the refactor,
-storage sends decoded records directly to reconciliation. Order writing still
-connects the same two files, with storage taking over encoding.](assets/untangle-banner.svg)
-
-Before, the pending-order report received raw rows from storage through two
-helpers, then decoded the JSON itself. Order creation encoded the same format on
-the write side. After the refactor, the report calls `storage.read_orders()`
-directly and order creation calls `storage.write_order(order)`. Storage now
-handles both conversions. The report drops two handoffs, and the write path
-carries an order record instead of bytes.
-[Open both routes](assets/untangle-banner.svg) ·
-[Before report](examples/checkout/before/src/reconcile.py) ·
-[After report](examples/checkout/after/src/reconcile.py#L3) ·
-[After storage](examples/checkout/after/src/storage.py#L18)
-
-Untangle renders these routes from evidence checked against the bundled
-snapshots. The full comparison follows the price, order, and report paths and
-shows the recorded checks. Four feature/file connections disappear across the
-two detours. The shared tests still check the same stored bytes and order
-results. [Full comparison](assets/example-comparison.svg) ·
-[Price route PNG](assets/untangle-before-after.png)
-
-Shared tests check callable outputs, stored bytes and key order, validation
-errors, operation order, pending-order filtering, and reads in both snapshots.
-These results apply to the bundled `InMemoryStorage` fixture; they do not
-establish behavior for other storage implementations.
-
-The runnable [checkout example](examples/README.md) includes the source
-snapshots, shared tests, and renderer evidence. From a checkout of this
-repository, generate its map with:
+From a checkout of this repository, generate the full example map.
 
 ```sh
 python skills/untangle/scripts/render_map.py examples/evidence.json --output-dir work/example

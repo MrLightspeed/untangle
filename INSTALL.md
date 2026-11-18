@@ -1,40 +1,42 @@
 # Installation
 
-Install the complete `skills/untangle` directory. Copying only `SKILL.md` leaves
-out the renderer and references. Choose one installation method so you do not
-end up with duplicate skills of the same name.
+Untangle needs Git and an agent that supports Agent Skills. Map rendering needs
+Python 3.13 or newer and uses only the standard library. Your project supplies
+its own build and test tools.
 
-Use Python 3.13 or newer to render maps. The renderer uses only Python's
-standard library. There are no third-party Python or JavaScript packages to
-install for the skill itself. Git and an agent that supports Agent Skills are
-also required; the project you refactor keeps its own build and test tools.
-
-Install the skill directory without running `npm install` or `bun install` in
-the source repository. Node.js or Bun is needed only for the optional Skills CLI
-installer below. Repository development dependencies and tests are for
-[contributors](CONTRIBUTING.md).
-
-## Codex installer
-
-In Codex, ask the skill installer to install Untangle from `main`:
-
-```text
-$skill-installer install https://github.com/MrLightspeed/untangle/tree/main/skills/untangle
-```
-
-The default branch can change as development continues. For an immutable source,
-use a full commit SHA. Installation does not update an existing copy. Restart
-Codex if the skill does not appear.
+Choose one install method per agent. Every method installs the complete
+`skills/untangle` directory, including the renderer and references. The
+[contributor setup](CONTRIBUTING.md) is for people working on Untangle itself.
 
 ## Install with Skills CLI
 
-The [Skills CLI](https://github.com/vercel-labs/skills) installs the package in
-the current project and selects a destination for each agent. The commands use
-`skills@latest`, which resolves the newest published CLI when you run them. For
-current command options and agent targets, see the CLI's
-[command reference](https://github.com/vercel-labs/skills/blob/main/docs/commands.md)
-and
-[agent list](https://github.com/vercel-labs/skills/blob/main/docs/agents.md).
+Run this from your project's terminal with npm and a
+[Node.js LTS release](https://nodejs.org/en/about/previous-releases) that meets
+the
+[Skills CLI requirements](https://github.com/vercel-labs/skills/blob/main/package.json).
+
+```sh
+npx skills@latest add MrLightspeed/untangle
+```
+
+Choose your agent if prompted. The CLI installs Untangle in the current project.
+Add `--global` to install for your user account. Use `--copy` if you prefer
+copies to links. Reload your agent if Untangle does not appear.
+
+### Bun
+
+If you use Bun, run this command from the same project folder.
+
+```sh
+bunx skills@latest add MrLightspeed/untangle
+```
+
+### Choose an agent in the command
+
+To skip agent selection, add `--agent` with a target from the table. See the
+Skills CLI
+[agent list](https://github.com/vercel-labs/skills/blob/main/docs/agents.md) for
+more targets.
 
 | Agent          | CLI target       | Project skill directory   | First-use prompt                                                   |
 | -------------- | ---------------- | ------------------------- | ------------------------------------------------------------------ |
@@ -43,53 +45,54 @@ and
 | Cursor         | `cursor`         | `.agents/skills/untangle` | `Use the untangle skill to map this repository in read-only mode.` |
 | GitHub Copilot | `github-copilot` | `.agents/skills/untangle` | `Use the untangle skill to map this repository in read-only mode.` |
 
-Use a supported
-[Node.js LTS release](https://nodejs.org/en/about/previous-releases) with npm
-that meets the
-[Skills CLI runtime requirements](https://github.com/vercel-labs/skills/blob/main/package.json).
-Bun is not required. Run the command for your agent from your project's root:
-
-### Codex
+#### Codex
 
 ```sh
 npx skills@latest add MrLightspeed/untangle --skill untangle --agent codex --copy
 ```
 
-### Claude Code
+#### Claude Code
 
 ```sh
 npx skills@latest add MrLightspeed/untangle --skill untangle --agent claude-code --copy
 ```
 
-### Cursor
+#### Cursor
 
 ```sh
 npx skills@latest add MrLightspeed/untangle --skill untangle --agent cursor --copy
 ```
 
-### GitHub Copilot
+#### GitHub Copilot
 
 ```sh
 npx skills@latest add MrLightspeed/untangle --skill untangle --agent github-copilot --copy
 ```
 
-These commands install from the default branch into the current project. Add
-`--global` to install for your user account instead. Use one installation method
-to avoid duplicate skills, and preserve existing local edits before updating.
+### Install a release
 
-If you use Bun, run the same installer from your project root.
+The commands above install from the default branch. To install a specific
+release, replace `RELEASE_TAG` with a tag from
+[GitHub Releases](https://github.com/MrLightspeed/untangle/releases).
 
 ```sh
-bunx skills@latest add MrLightspeed/untangle --skill untangle --copy
+npx skills@latest add MrLightspeed/untangle@RELEASE_TAG
 ```
 
-Choose your agent if prompted, or add `--agent` with a target from the table.
-`--copy` installs a copy of the skill files. Reload your agent if Untangle does
-not appear.
+A full commit SHA in the same position selects an exact revision. See the
+[Skills CLI command reference](https://github.com/vercel-labs/skills/blob/main/docs/commands.md#skills-add).
 
-Codex prompts use `$untangle`; Claude Code supports `/untangle`. For Cursor and
-GitHub Copilot, ask in chat using the prompt above. See the host documentation
-in [References](REFERENCES.md).
+## Codex installer
+
+In Codex, ask the skill installer to install Untangle from `main`.
+
+```text
+$skill-installer install https://github.com/MrLightspeed/untangle/tree/main/skills/untangle
+```
+
+To select a specific revision, use a full commit SHA in place of `main`. To
+update an existing copy, follow the [update instructions](#update-or-remove).
+Reload Codex if the skill does not appear.
 
 ## Manual installation
 
@@ -196,10 +199,16 @@ running it. See [support](SUPPORT.md) if the same step keeps failing.
 
 ## Update or remove
 
-An installation is a snapshot. Review upstream changes, keep any local
-customizations, and back up the exact installed directory before replacing it.
-Run the checks again. This repository provides no command that silently
-overwrites an installed skill.
+Review upstream changes and save any local edits before updating. For a project
+install from the default branch, run this from the same project.
+
+```sh
+npx skills@latest update untangle --project
+```
+
+For a pinned install, [install the release](#install-a-release) you want. For a
+manual or native Codex install, back up and replace the installed directory
+using the original method. [Verify](#verify) the updated copy.
 
 To uninstall, locate the exact Untangle directory used by your installation
 method. Preserve anything you need, then remove only that directory. Restart the
