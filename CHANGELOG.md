@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.1
+
+- Use the target checkout and installed dependencies to verify unfamiliar APIs.
+  Record unresolved questions and defer changes that depend on them. This
+  removes the online lookup step flagged by Snyk W011.
+- Simplify installation instructions, add the skills.sh install count badge, and
+  provide a GitHub issue form for sharing Untangle examples.
+
 ## 0.1.0
 
 ### Skill and renderer
