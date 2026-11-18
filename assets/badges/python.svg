@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="126" height="28" viewBox="0 0 126 28" role="img" aria-labelledby="title">
+  <title id="title">Python: 3.13 or newer</title>
+  <rect width="126" height="28" rx="5" fill="#0b1220"/>
+  <path d="M66 0h55a5 5 0 0 1 5 5v18a5 5 0 0 1-5 5H66z" fill="#c4b5fd"/>
+  <g font-family="Verdana,DejaVu Sans,sans-serif" font-size="10" font-weight="700" text-anchor="middle">
+    <text x="33" y="18" fill="#e2e8f0">PYTHON</text>
+    <text x="96" y="18" fill="#0b1220">3.13+</text>
+  </g>
+</svg>

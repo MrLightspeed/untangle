@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="164" height="28" viewBox="0 0 164 28" role="img" aria-labelledby="title desc">
+  <title id="title">GitHub stars: 0, snapshot</title>
+  <desc id="desc">MrLightspeed/untangle had 0 stars on November 15, 2026. This private preview badge is a snapshot, not a live count.</desc>
+  <rect width="164" height="28" rx="5" fill="#0b1220"/>
+  <path d="M78 0h81a5 5 0 0 1 5 5v18a5 5 0 0 1-5 5H78z" fill="#f5be78"/>
+  <path d="m15 7 2 4.5 5 .5-3.8 3.3 1.1 4.7-4.3-2.5-4.3 2.5 1.1-4.7L8 12l5-.5z" fill="#f5be78"/>
+  <g font-family="Verdana,DejaVu Sans,sans-serif" font-size="10" font-weight="700" text-anchor="middle">
+    <text x="50" y="18" fill="#e2e8f0">STARS</text>
+    <text x="121" y="18" fill="#0b1220">0 SNAPSHOT</text>
+  </g>
+</svg>

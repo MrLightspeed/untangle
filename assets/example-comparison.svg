@@ -1,0 +1,269 @@
+<svg class="comparison change-comparison" xmlns="http://www.w3.org/2000/svg" width="1600" height="4386" viewBox="0 0 1600 4386" role="img" aria-labelledby="svg-title svg-description">
+<title id="svg-title">Untangle / Two checkout knots untied · source changes before and after</title>
+<desc id="svg-description">Before: Return raw rows → History helper → Order helper → Decode and filter. After: Decode stored rows → Filter pending orders. Source-referenced paths or matched excerpts, the reason for each change, preserved behavior and recorded checks. Full source excerpts remain in the HTML.</desc>
+<rect width="1600" height="4386" rx="18" fill="#070c14"/>
+<text x="48.0" y="52.0" font-family="Arial, sans-serif" font-size="32" font-weight="400" fill="#f2f6fb" >Untangle / Two checkout knots untied</text>
+<text x="48.0" y="97.0" font-family="Arial, sans-serif" font-size="19" font-weight="700" fill="#f4a261" >DIRECT ROUTE · KNOT #1</text>
+<svg x="48" y="117" class="path-comparison" xmlns="http://www.w3.org/2000/svg" width="1504" height="863.4571428571429" viewBox="0 0 1120 643" role="img" aria-labelledby="route-1-1-title route-1-1-description">
+<title id="route-1-1-title">Read pending orders: Callers encode and decode stored JSON</title>
+<desc id="route-1-1-description">Every arrow is a supplied source-to-source handoff. The same owners keep their positions. Owners outside a route remain visible; crossings are layout, not extra connections.</desc>
+<rect width="1120" height="643" rx="16" fill="#0a101b"/>
+<text x="28.0" y="40.0" font-family="Arial, sans-serif" font-size="29" font-weight="400" fill="#f2f6fb" >Read pending orders</text>
+<text x="28.0" y="73.0" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#b9c9db" >Follow the arrows. Numbers identify each source-to-source handoff.</text>
+<g transform="translate(0 0)">
+<g class="route-phase" data-phase="before" transform="translate(16 0)">
+<rect x="0" y="100" width="528" height="460" rx="12" fill="#101b2b" stroke="#35465d"/>
+<text x="20.0" y="134.0" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#f2f6fb" >BEFORE / 3 handoffs</text>
+<text x="20.0" y="164.0" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#f4a261" >JSON bytes</text>
+<defs><marker id="route-1-1-before-arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M 0 0 L 12 6 L 0 12 Z" fill="#f4a261"/></marker></defs>
+<path d="M 129 306 C 129 364.0 399 364.0 399 422" fill="none" stroke="#101b2b" stroke-width="12"/>
+<path class="route-wire" data-from="src/storage.py" data-to="src/history.py" d="M 129 306 C 129 364.0 399 364.0 399 422" fill="none" stroke="#f4a261" stroke-width="4" marker-end="url(#route-1-1-before-arrow)"/>
+<circle cx="188.4" cy="331.52" r="13" fill="#f4a261" stroke="#101b2b" stroke-width="3"/>
+<text x="188.4" y="336.5" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#10131b" text-anchor="middle">1</text>
+<path d="M 290 480.0 L 238 480.0" fill="none" stroke="#101b2b" stroke-width="12"/>
+<path class="route-wire" data-from="src/history.py" data-to="src/orders.py" d="M 290 480.0 L 238 480.0" fill="none" stroke="#f4a261" stroke-width="4" marker-end="url(#route-1-1-before-arrow)"/>
+<circle cx="278.56" cy="480.0" r="13" fill="#f4a261" stroke="#101b2b" stroke-width="3"/>
+<text x="278.6" y="485.0" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#10131b" text-anchor="middle">2</text>
+<path d="M 129 422 C 129 364.0 399 364.0 399 306" fill="none" stroke="#101b2b" stroke-width="12"/>
+<path class="route-wire" data-from="src/orders.py" data-to="src/reconcile.py" d="M 129 422 C 129 364.0 399 364.0 399 306" fill="none" stroke="#f4a261" stroke-width="4" marker-end="url(#route-1-1-before-arrow)"/>
+<circle cx="188.4" cy="396.48" r="13" fill="#f4a261" stroke="#101b2b" stroke-width="3"/>
+<text x="188.4" y="401.5" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#10131b" text-anchor="middle">3</text>
+<g class="route-owner" data-file="src/storage.py" data-active="true" transform="translate(20 190)">
+<rect width="218" height="116" rx="9" fill="#0a101b" stroke="#7186a0" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#dce6f2" >Return raw rows</text>
+<text x="14.0" y="99.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#b9c9db" >src/storage.py:13</text>
+</g>
+<g class="route-owner" data-file="src/history.py" data-active="true" transform="translate(290 422)">
+<rect width="218" height="116" rx="9" fill="#0a101b" stroke="#7186a0" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#dce6f2" >History helper</text>
+<text x="14.0" y="99.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#b9c9db" >src/history.py:1</text>
+</g>
+<g class="route-owner" data-file="src/orders.py" data-active="true" transform="translate(20 422)">
+<rect width="218" height="116" rx="9" fill="#0a101b" stroke="#7186a0" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#dce6f2" >Order helper</text>
+<text x="14.0" y="99.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#b9c9db" >src/orders.py:12</text>
+</g>
+<g class="route-owner" data-file="src/reconcile.py" data-active="true" transform="translate(290 190)">
+<rect width="218" height="116" rx="9" fill="#0a101b" stroke="#7186a0" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#dce6f2" >Decode and filter</text>
+<text x="14.0" y="99.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#b9c9db" >src/reconcile.py:8</text>
+</g>
+</g>
+<g class="route-phase" data-phase="after" transform="translate(576 0)">
+<rect x="0" y="100" width="528" height="460" rx="12" fill="#101b2b" stroke="#35465d"/>
+<text x="20.0" y="134.0" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#f2f6fb" >AFTER / 1 handoff</text>
+<text x="20.0" y="164.0" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#f4a261" >Order records</text>
+<defs><marker id="route-1-1-after-arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M 0 0 L 12 6 L 0 12 Z" fill="#f4a261"/></marker></defs>
+<path d="M 238 248.0 L 290 248.0" fill="none" stroke="#101b2b" stroke-width="12"/>
+<path class="route-wire" data-from="src/storage.py" data-to="src/reconcile.py" d="M 238 248.0 L 290 248.0" fill="none" stroke="#f4a261" stroke-width="4" marker-end="url(#route-1-1-after-arrow)"/>
+<circle cx="249.44" cy="248.0" r="13" fill="#f4a261" stroke="#101b2b" stroke-width="3"/>
+<text x="249.4" y="253.0" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#10131b" text-anchor="middle">1</text>
+<g class="route-owner" data-file="src/storage.py" data-active="true" transform="translate(20 190)">
+<rect width="218" height="116" rx="9" fill="#0a101b" stroke="#7186a0" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#dce6f2" >Decode stored rows</text>
+<text x="14.0" y="99.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#b9c9db" >src/storage.py:23</text>
+</g>
+<g class="route-owner" data-file="src/history.py" data-active="false" transform="translate(290 422)">
+<rect width="218" height="116" rx="9" fill="#0a101b" stroke="#435267" stroke-dasharray="5 5" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#8495aa" >src/history.py</text>
+<text x="14.0" y="97.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#8495aa" >outside this route</text>
+</g>
+<g class="route-owner" data-file="src/orders.py" data-active="false" transform="translate(20 422)">
+<rect width="218" height="116" rx="9" fill="#0a101b" stroke="#435267" stroke-dasharray="5 5" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#8495aa" >src/orders.py</text>
+<text x="14.0" y="97.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#8495aa" >outside this route</text>
+</g>
+<g class="route-owner" data-file="src/reconcile.py" data-active="true" transform="translate(290 190)">
+<rect width="218" height="116" rx="9" fill="#0a101b" stroke="#7186a0" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#dce6f2" >Filter pending</text>
+<text x="14.0" y="62.0" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#dce6f2" >orders</text>
+<text x="14.0" y="99.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#b9c9db" >src/reconcile.py:3</text>
+</g>
+</g>
+<text x="28.0" y="595.0" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#dce6f2" >3 handoffs before → 1 after. Wire color stays the same in both panels.</text>
+<text x="28.0" y="625.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#a9bed5" >Positions stay fixed across panels. Only the supplied handoffs are drawn.</text>
+</g>
+</svg>
+<text x="48.0" y="1016.5" font-family="Arial, sans-serif" font-size="20" font-weight="700" fill="#dce6f2" >FULL FEATURE / FILE WIRING</text>
+<svg y="1038" class="comparison" xmlns="http://www.w3.org/2000/svg" width="1600" height="760" viewBox="0 0 1600 760" role="img" aria-labelledby="wiring-title wiring-description">
+<title id="wiring-title">Untangle / Two checkout knots untied · before and after wiring map</title>
+<desc id="wiring-description">Six runtime files in the before fixture and five after: checkout, price quotes, and pending-order reconciliation.. Feature-to-file pairs are colored by feature. The renderer validates evidence shape and references; it does not certify code truth.</desc>
+<rect width="1600" height="760" rx="18" fill="#070c14"/>
+<text x="24.0" y="36.0" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#f2f6fb" >Untangle / Two checkout knots untied</text>
+<text x="24.0" y="56.0" font-family="Arial, sans-serif" font-size="10" font-weight="400" fill="#a5b4c7" >Six runtime files in the before fixture and five after: checkout, price quotes, and pending-order reconciliation.</text>
+<text x="24.0" y="75.0" font-family="Arial, sans-serif" font-size="9" font-weight="500" fill="#c2cede" >Knot status: blocked 0 · deferred 0 · fixed 2 · open 0 · rolled-back 0</text>
+<text x="22.0" y="94.0" font-family="Arial, sans-serif" font-size="8" font-weight="700" fill="#8fa2b8" letter-spacing="1">FEATURE COLORS</text>
+<circle cx="128" cy="91.5" r="3.5" fill="#4cc9f0"/>
+<text x="136.0" y="94.0" font-family="Arial, sans-serif" font-size="8" font-weight="500" fill="#d2dce8" >Place an order</text>
+<circle cx="291" cy="91.5" r="3.5" fill="#f4a261"/>
+<text x="299.0" y="94.0" font-family="Arial, sans-serif" font-size="8" font-weight="500" fill="#d2dce8" >Quote a price</text>
+<circle cx="454" cy="91.5" r="3.5" fill="#a78bfa"/>
+<text x="462.0" y="94.0" font-family="Arial, sans-serif" font-size="8" font-weight="500" fill="#d2dce8" >Reconcile pending o…</text>
+<g class="snapshot-panel" aria-label="Before · observed baseline snapshot"><rect x="16" y="128" width="780" height="530" rx="14" fill="#0c1420" stroke="#243247"/><text x="34.0" y="154.0" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#97abc3" letter-spacing="1.5">BEFORE · OBSERVED BASELINE</text><text x="34.0" y="180.0" font-family="Arial, sans-serif" font-size="11" font-weight="500" fill="#dce6f2" >Revision: sha256:ae42184670712f47ad3ea903ff7d659738dc1f046ebb4d627fe2351720a8ee1a</text><title>sha256:ae42184670712f47ad3ea903ff7d659738dc1f046ebb4d627fe2351720a8ee1a</title><text x="34.0" y="201.0" font-family="Arial, sans-serif" font-size="10" font-weight="400" fill="#96a6ba" >Coverage: Synthetic fixture baseline. Checkout, price-quote, and reconciliation entry points are traced…</text><title>Synthetic fixture baseline. Checkout, price-quote, and reconciliation entry points are traced across all six before runtime files. The quote price path crosses quotes.py, orders.py, storage.py, and catalog.py. Reconciliation reaches storage through the orders.py facade and history.py pass-through. The fixture has no separate runtime configuration, database, web framework, or deployment path.</title><text x="34.0" y="222.0" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#b0bed0" >6 files · 12 feature/file pairs · 12 source evidence records</text><path class="edge" data-feature-index="0" data-file-group-index="0" data-edge-count="1" d="M 228 258.0 C 377.0 258.0, 377.0 258.0, 526 258.0" fill="none" stroke="#4cc9f0" stroke-width="1.4" stroke-opacity="0.85" /><path class="edge" data-feature-index="0" data-file-group-index="2" data-edge-count="1" d="M 228 258.0 C 377.0 258.0, 377.0 404.4, 526 404.4" fill="none" stroke="#4cc9f0" stroke-width="1.4" stroke-opacity="0.85" /><path class="edge" data-feature-index="0" data-file-group-index="3" data-edge-count="1" d="M 228 258.0 C 377.0 258.0, 377.0 477.6, 526 477.6" fill="none" stroke="#4cc9f0" stroke-width="1.4" stroke-opacity="0.85" /><path class="edge" data-feature-index="0" data-file-group-index="5" data-edge-count="1" d="M 228 258.0 C 377.0 258.0, 377.0 624.0, 526 624.0" fill="none" stroke="#4cc9f0" stroke-width="1.4" stroke-opacity="0.85" /><path class="edge" data-feature-index="1" data-file-group-index="0" data-edge-count="1" d="M 228 441.0 C 377.0 441.0, 377.0 258.0, 526 258.0" fill="none" stroke="#f4a261" stroke-width="1.4" stroke-opacity="0.85" /><path class="edge" data-feature-index="1" data-file-group-index="2" data-edge-count="1" d="M 228 441.0 C 377.0 441.0, 377.0 404.4, 526 404.4" fill="none" stroke="#f4a261" stroke-width="3.0" stroke-opacity="0.85" stroke-dasharray="8 4"/><path class="edge" data-feature-index="1" data-file-group-index="3" data-edge-count="1" d="M 228 441.0 C 377.0 441.0, 377.0 477.6, 526 477.6" fill="none" stroke="#f4a261" stroke-width="1.4" stroke-opacity="0.85" /><path class="edge" data-feature-index="1" data-file-group-index="5" data-edge-count="1" d="M 228 441.0 C 377.0 441.0, 377.0 624.0, 526 624.0" fill="none" stroke="#f4a261" stroke-width="3.0" stroke-opacity="0.85" stroke-dasharray="8 4"/><path class="edge" data-feature-index="2" data-file-group-index="1" data-edge-count="1" d="M 228 624.0 C 377.0 624.0, 377.0 331.2, 526 331.2" fill="none" stroke="#a78bfa" stroke-width="3.0" stroke-opacity="0.85" stroke-dasharray="8 4"/><path class="edge" data-feature-index="2" data-file-group-index="2" data-edge-count="1" d="M 228 624.0 C 377.0 624.0, 377.0 404.4, 526 404.4" fill="none" stroke="#a78bfa" stroke-width="3.0" stroke-opacity="0.85" stroke-dasharray="8 4"/><path class="edge" data-feature-index="2" data-file-group-index="4" data-edge-count="1" d="M 228 624.0 C 377.0 624.0, 377.0 550.8, 526 550.8" fill="none" stroke="#a78bfa" stroke-width="1.4" stroke-opacity="0.85" /><path class="edge" data-feature-index="2" data-file-group-index="5" data-edge-count="1" d="M 228 624.0 C 377.0 624.0, 377.0 624.0, 526 624.0" fill="none" stroke="#a78bfa" stroke-width="1.4" stroke-opacity="0.85" /><g class="diagram-feature" data-feature-index="0"><title>Place an order</title><rect x="32" y="234.0" width="196" height="48" rx="5" fill="#152435" stroke="#4cc9f0" stroke-width="1.4"/><circle cx="41" cy="258.0" r="3.2" fill="#4cc9f0"/><text x="49.0" y="263.0" font-family="Arial, sans-serif" font-size="15" font-weight="600" fill="#edf4fb" >Place an order</text></g><g class="diagram-feature" data-feature-index="1"><title>Quote a price</title><rect x="32" y="417.0" width="196" height="48" rx="5" fill="#152435" stroke="#f4a261" stroke-width="1.4"/><circle cx="41" cy="441.0" r="3.2" fill="#f4a261"/><text x="49.0" y="446.0" font-family="Arial, sans-serif" font-size="15" font-weight="600" fill="#edf4fb" >Quote a price</text></g><g class="diagram-feature" data-feature-index="2"><title>Reconcile pending orders</title><rect x="32" y="600.0" width="196" height="48" rx="5" fill="#152435" stroke="#a78bfa" stroke-width="1.4"/><circle cx="41" cy="624.0" r="3.2" fill="#a78bfa"/><text x="49.0" y="621.0" font-family="Arial, sans-serif" font-size="15" font-weight="600" fill="#edf4fb" >Reconcile pending</text><text x="49.0" y="639.0" font-family="Arial, sans-serif" font-size="15" font-weight="600" fill="#edf4fb" >orders</text></g><g class="diagram-file" data-file-group-index="0"><title>src/catalog.py</title><rect x="526" y="240.0" width="252" height="36" rx="5" fill="#111d2b" stroke="#60738b" stroke-width="1"/><text x="534.0" y="264.0" font-family="Arial, sans-serif" font-size="17" font-weight="500" fill="#cfdae7" >src/catalog.py</text></g><g class="svg-knot-badge" data-knot-ids="2"><title>#2 Price quotes detour through orders and storage · baseline knot · baseline src/quotes.py:7, src/orders.py:8, src/storage.py:18, src/catalog.py:4</title><rect x="740.0" y="246.0" width="34" height="24" rx="4" fill="#d94a57"/><text x="757.0" y="263.0" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#2</text></g><g class="diagram-file" data-file-group-index="1"><title>src/history.py</title><rect x="526" y="313.2" width="252" height="36" rx="5" fill="#111d2b" stroke="#60738b" stroke-width="1"/><text x="534.0" y="337.2" font-family="Arial, sans-serif" font-size="17" font-weight="500" fill="#cfdae7" >src/history.py</text></g><g class="svg-knot-badge" data-knot-ids="1"><title>#1 Callers encode and decode stored JSON · baseline knot · baseline src/orders.py:33, src/reconcile.py:9, src/history.py:1, src/orders.py:12</title><rect x="740.0" y="319.2" width="34" height="24" rx="4" fill="#d94a57"/><text x="757.0" y="336.2" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#1</text></g><g class="diagram-file" data-file-group-index="2"><title>src/orders.py</title><rect x="526" y="386.4" width="252" height="36" rx="5" fill="#111d2b" stroke="#60738b" stroke-width="1"/><text x="534.0" y="410.4" font-family="Arial, sans-serif" font-size="17" font-weight="500" fill="#cfdae7" >src/orders.py</text></g><g class="svg-knot-badge" data-knot-ids="1 2"><title>#1 Callers encode and decode stored JSON · baseline knot · baseline src/orders.py:33, src/reconcile.py:9, src/history.py:1, src/orders.py:12; #2 Price quotes detour through orders and storage · baseline knot · baseline src/quotes.py:7, src/orders.py:8, src/storage.py:18, src/catalog.py:4</title><rect x="704.0" y="392.4" width="34" height="24" rx="4" fill="#d94a57"/><text x="721.0" y="409.4" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#1</text><rect x="740.0" y="392.4" width="34" height="24" rx="4" fill="#d94a57"/><text x="757.0" y="409.4" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#2</text></g><g class="diagram-file" data-file-group-index="3"><title>src/quotes.py</title><rect x="526" y="459.6" width="252" height="36" rx="5" fill="#111d2b" stroke="#60738b" stroke-width="1"/><text x="534.0" y="483.6" font-family="Arial, sans-serif" font-size="17" font-weight="500" fill="#cfdae7" >src/quotes.py</text></g><g class="svg-knot-badge" data-knot-ids="2"><title>#2 Price quotes detour through orders and storage · baseline knot · baseline src/quotes.py:7, src/orders.py:8, src/storage.py:18, src/catalog.py:4</title><rect x="740.0" y="465.6" width="34" height="24" rx="4" fill="#d94a57"/><text x="757.0" y="482.6" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#2</text></g><g class="diagram-file" data-file-group-index="4"><title>src/reconcile.py</title><rect x="526" y="532.8" width="252" height="36" rx="5" fill="#111d2b" stroke="#60738b" stroke-width="1"/><text x="534.0" y="556.8" font-family="Arial, sans-serif" font-size="17" font-weight="500" fill="#cfdae7" >src/reconcile.py</text></g><g class="svg-knot-badge" data-knot-ids="1"><title>#1 Callers encode and decode stored JSON · baseline knot · baseline src/orders.py:33, src/reconcile.py:9, src/history.py:1, src/orders.py:12</title><rect x="740.0" y="538.8" width="34" height="24" rx="4" fill="#d94a57"/><text x="757.0" y="555.8" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#1</text></g><g class="diagram-file" data-file-group-index="5"><title>src/storage.py</title><rect x="526" y="606.0" width="252" height="36" rx="5" fill="#111d2b" stroke="#60738b" stroke-width="1"/><text x="534.0" y="630.0" font-family="Arial, sans-serif" font-size="17" font-weight="500" fill="#cfdae7" >src/storage.py</text></g><g class="svg-knot-badge" data-knot-ids="1 2"><title>#1 Callers encode and decode stored JSON · baseline knot · baseline src/orders.py:33, src/reconcile.py:9, src/history.py:1, src/orders.py:12; #2 Price quotes detour through orders and storage · baseline knot · baseline src/quotes.py:7, src/orders.py:8, src/storage.py:18, src/catalog.py:4</title><rect x="704.0" y="612.0" width="34" height="24" rx="4" fill="#d94a57"/><text x="721.0" y="629.0" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#1</text><rect x="740.0" y="612.0" width="34" height="24" rx="4" fill="#d94a57"/><text x="757.0" y="629.0" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#2</text></g></g>
+<g class="snapshot-panel" aria-label="After · observed final state snapshot"><rect x="804" y="128" width="780" height="530" rx="14" fill="#0c1420" stroke="#243247"/><text x="822.0" y="154.0" font-family="Arial, sans-serif" font-size="13" font-weight="700" fill="#97abc3" letter-spacing="1.5">AFTER · OBSERVED FINAL STATE</text><text x="822.0" y="180.0" font-family="Arial, sans-serif" font-size="11" font-weight="500" fill="#dce6f2" >Revision: sha256:5ef5bab0ad831d7be32f492460aa318fed6a5ef66ba35fcdcb7c49a2b31287fe</text><title>sha256:5ef5bab0ad831d7be32f492460aa318fed6a5ef66ba35fcdcb7c49a2b31287fe</title><text x="822.0" y="201.0" font-family="Arial, sans-serif" font-size="10" font-weight="400" fill="#96a6ba" >Coverage: Synthetic fixture final snapshot. The same three entry points and five runtime files are trac…</text><title>Synthetic fixture final snapshot. The same three entry points and five runtime files are traced. Quote reads prices directly from catalog.py, and storage owns JSON encoding and decoding. The fixture has no separate runtime configuration, database, web framework, or deployment path.</title><text x="822.0" y="222.0" font-family="Arial, sans-serif" font-size="11" font-weight="600" fill="#b0bed0" >5 files · 8 feature/file pairs · 8 source evidence records</text><path class="edge" data-feature-index="0" data-file-group-index="0" data-edge-count="1" d="M 1016 258.0 C 1165.0 258.0, 1165.0 258.0, 1314 258.0" fill="none" stroke="#4cc9f0" stroke-width="1.4" stroke-opacity="0.85" /><path class="edge" data-feature-index="0" data-file-group-index="2" data-edge-count="1" d="M 1016 258.0 C 1165.0 258.0, 1165.0 404.4, 1314 404.4" fill="none" stroke="#4cc9f0" stroke-width="1.4" stroke-opacity="0.85" /><path class="edge" data-feature-index="0" data-file-group-index="3" data-edge-count="1" d="M 1016 258.0 C 1165.0 258.0, 1165.0 477.6, 1314 477.6" fill="none" stroke="#4cc9f0" stroke-width="1.4" stroke-opacity="0.85" /><path class="edge" data-feature-index="0" data-file-group-index="5" data-edge-count="1" d="M 1016 258.0 C 1165.0 258.0, 1165.0 624.0, 1314 624.0" fill="none" stroke="#4cc9f0" stroke-width="1.4" stroke-opacity="0.85" /><path class="edge" data-feature-index="1" data-file-group-index="0" data-edge-count="1" d="M 1016 441.0 C 1165.0 441.0, 1165.0 258.0, 1314 258.0" fill="none" stroke="#f4a261" stroke-width="1.4" stroke-opacity="0.85" /><path class="edge" data-feature-index="1" data-file-group-index="3" data-edge-count="1" d="M 1016 441.0 C 1165.0 441.0, 1165.0 477.6, 1314 477.6" fill="none" stroke="#f4a261" stroke-width="1.4" stroke-opacity="0.85" /><path class="edge" data-feature-index="2" data-file-group-index="4" data-edge-count="1" d="M 1016 624.0 C 1165.0 624.0, 1165.0 550.8, 1314 550.8" fill="none" stroke="#a78bfa" stroke-width="1.4" stroke-opacity="0.85" /><path class="edge" data-feature-index="2" data-file-group-index="5" data-edge-count="1" d="M 1016 624.0 C 1165.0 624.0, 1165.0 624.0, 1314 624.0" fill="none" stroke="#a78bfa" stroke-width="1.4" stroke-opacity="0.85" /><g class="diagram-feature" data-feature-index="0"><title>Place an order</title><rect x="820" y="234.0" width="196" height="48" rx="5" fill="#152435" stroke="#4cc9f0" stroke-width="1.4"/><circle cx="829" cy="258.0" r="3.2" fill="#4cc9f0"/><text x="837.0" y="263.0" font-family="Arial, sans-serif" font-size="15" font-weight="600" fill="#edf4fb" >Place an order</text></g><g class="svg-knot-badge" data-knot-ids="1"><title>#1 Callers encode and decode stored JSON · fixed · baseline src/orders.py:33, src/reconcile.py:9, src/history.py:1, src/orders.py:12</title><rect x="978.0" y="246.0" width="34" height="24" rx="4" fill="#278355"/><text x="995.0" y="263.0" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#1</text></g><g class="diagram-feature" data-feature-index="1"><title>Quote a price</title><rect x="820" y="417.0" width="196" height="48" rx="5" fill="#152435" stroke="#f4a261" stroke-width="1.4"/><circle cx="829" cy="441.0" r="3.2" fill="#f4a261"/><text x="837.0" y="446.0" font-family="Arial, sans-serif" font-size="15" font-weight="600" fill="#edf4fb" >Quote a price</text></g><g class="diagram-feature" data-feature-index="2"><title>Reconcile pending orders</title><rect x="820" y="600.0" width="196" height="48" rx="5" fill="#152435" stroke="#a78bfa" stroke-width="1.4"/><circle cx="829" cy="624.0" r="3.2" fill="#a78bfa"/><text x="837.0" y="629.0" font-family="Arial, sans-serif" font-size="15" font-weight="600" fill="#edf4fb" >Reconcile pendi…</text></g><g class="svg-knot-badge" data-knot-ids="1"><title>#1 Callers encode and decode stored JSON · fixed · baseline src/orders.py:33, src/reconcile.py:9, src/history.py:1, src/orders.py:12</title><rect x="978.0" y="612.0" width="34" height="24" rx="4" fill="#278355"/><text x="995.0" y="629.0" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#1</text></g><g class="diagram-file" data-file-group-index="0"><title>src/catalog.py</title><rect x="1314" y="240.0" width="252" height="36" rx="5" fill="#111d2b" stroke="#60738b" stroke-width="1"/><text x="1322.0" y="264.0" font-family="Arial, sans-serif" font-size="17" font-weight="500" fill="#cfdae7" >src/catalog.py</text></g><g class="svg-knot-badge" data-knot-ids="2"><title>#2 Price quotes detour through orders and storage · fixed · baseline src/quotes.py:7, src/orders.py:8, src/storage.py:18, src/catalog.py:4</title><rect x="1528.0" y="246.0" width="34" height="24" rx="4" fill="#278355"/><text x="1545.0" y="263.0" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#2</text></g><g class="diagram-file" data-file-group-index="2"><title>src/orders.py</title><rect x="1314" y="386.4" width="252" height="36" rx="5" fill="#111d2b" stroke="#60738b" stroke-width="1"/><text x="1322.0" y="410.4" font-family="Arial, sans-serif" font-size="17" font-weight="500" fill="#cfdae7" >src/orders.py</text></g><g class="svg-knot-badge" data-knot-ids="1 2"><title>#1 Callers encode and decode stored JSON · fixed · baseline src/orders.py:33, src/reconcile.py:9, src/history.py:1, src/orders.py:12; #2 Price quotes detour through orders and storage · fixed · baseline src/quotes.py:7, src/orders.py:8, src/storage.py:18, src/catalog.py:4</title><rect x="1492.0" y="392.4" width="34" height="24" rx="4" fill="#278355"/><text x="1509.0" y="409.4" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#1</text><rect x="1528.0" y="392.4" width="34" height="24" rx="4" fill="#278355"/><text x="1545.0" y="409.4" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#2</text></g><g class="diagram-file" data-file-group-index="3"><title>src/quotes.py</title><rect x="1314" y="459.6" width="252" height="36" rx="5" fill="#111d2b" stroke="#60738b" stroke-width="1"/><text x="1322.0" y="483.6" font-family="Arial, sans-serif" font-size="17" font-weight="500" fill="#cfdae7" >src/quotes.py</text></g><g class="svg-knot-badge" data-knot-ids="2"><title>#2 Price quotes detour through orders and storage · fixed · baseline src/quotes.py:7, src/orders.py:8, src/storage.py:18, src/catalog.py:4</title><rect x="1528.0" y="465.6" width="34" height="24" rx="4" fill="#278355"/><text x="1545.0" y="482.6" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#2</text></g><g class="diagram-file" data-file-group-index="4"><title>src/reconcile.py</title><rect x="1314" y="532.8" width="252" height="36" rx="5" fill="#111d2b" stroke="#60738b" stroke-width="1"/><text x="1322.0" y="556.8" font-family="Arial, sans-serif" font-size="17" font-weight="500" fill="#cfdae7" >src/reconcile.py</text></g><g class="svg-knot-badge" data-knot-ids="1"><title>#1 Callers encode and decode stored JSON · fixed · baseline src/orders.py:33, src/reconcile.py:9, src/history.py:1, src/orders.py:12</title><rect x="1528.0" y="538.8" width="34" height="24" rx="4" fill="#278355"/><text x="1545.0" y="555.8" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#1</text></g><g class="diagram-file" data-file-group-index="5"><title>src/storage.py</title><rect x="1314" y="606.0" width="252" height="36" rx="5" fill="#111d2b" stroke="#60738b" stroke-width="1"/><text x="1322.0" y="630.0" font-family="Arial, sans-serif" font-size="17" font-weight="500" fill="#cfdae7" >src/storage.py</text></g><g class="svg-knot-badge" data-knot-ids="1 2"><title>#1 Callers encode and decode stored JSON · fixed · baseline src/orders.py:33, src/reconcile.py:9, src/history.py:1, src/orders.py:12; #2 Price quotes detour through orders and storage · fixed · baseline src/quotes.py:7, src/orders.py:8, src/storage.py:18, src/catalog.py:4</title><rect x="1492.0" y="612.0" width="34" height="24" rx="4" fill="#278355"/><text x="1509.0" y="629.0" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#1</text><rect x="1528.0" y="612.0" width="34" height="24" rx="4" fill="#278355"/><text x="1545.0" y="629.0" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#ffffff" text-anchor="middle">#2</text></g></g>
+<text x="22.0" y="675.0" font-family="Arial, sans-serif" font-size="11" font-weight="700" fill="#a5b4c7" >NUMBERED KNOTS / red = baseline or unresolved; green = recorded fixed status</text>
+<g class="svg-knot-badge" data-knot-ids="1"><title>Callers encode and decode stored JSON · Give the storage owner write_order and read_orders operations; remove history.py&#x27;s read_raw_order_history pass-through and orders.py&#x27;s _rows_for_reconciliation facade as callers hand JSON ownership to storage, while preserving the raw row APIs and serialized format.</title>
+<rect x="22" y="682" width="39" height="19" rx="5" fill="#278355"/>
+<text x="41.5" y="695.5" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#ffffff" text-anchor="middle">#1</text>
+</g>
+<text x="69.0" y="695.5" font-family="Arial, sans-serif" font-size="9" font-weight="600" fill="#78d9a1" >Callers encode and decode stored JSON · medium · fixed</text>
+<text x="24.0" y="715.0" font-family="Arial, sans-serif" font-size="8" font-weight="400" fill="#a5b4c7" >src/orders.py:33 · Give the storage owner write_order and read_orders operat…</text>
+<g class="svg-knot-badge" data-knot-ids="2"><title>Price quotes detour through orders and storage · Have quote call catalog.price_for directly and remove the price-forwarding helpers from orders.py and storage.py.</title>
+<rect x="542" y="682" width="39" height="19" rx="5" fill="#278355"/>
+<text x="561.5" y="695.5" font-family="Arial, sans-serif" font-size="9" font-weight="700" fill="#ffffff" text-anchor="middle">#2</text>
+</g>
+<text x="589.0" y="695.5" font-family="Arial, sans-serif" font-size="9" font-weight="600" fill="#78d9a1" >Price quotes detour through orders and sto… · medium · fixed</text>
+<text x="544.0" y="715.0" font-family="Arial, sans-serif" font-size="8" font-weight="400" fill="#a5b4c7" >src/quotes.py:7 · Have quote call catalog.price_for directly and remove the…</text>
+<text x="22.0" y="748.0" font-family="Arial, sans-serif" font-size="8" font-weight="400" fill="#8796a8" >Full paths and evidence are in untangle.html. Coverage is supplied by the manifest; this renderer does not certify code truth or completeness. Dashed routes contain snapshot-specific connections.</text>
+</svg>
+<text x="48.0" y="1843.0" font-family="Arial, sans-serif" font-size="26" font-weight="700" fill="#f2f6fb" >WHAT WAS UNTIED</text>
+<text x="48.0" y="1878.0" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#bbcbdc" >Feature/file connections: 8 retained, 0 added, 4 removed.</text>
+<text x="48.0" y="1910.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#95a9c0" >Showing 2 of 2 source-based knot explanations; all are in untangle.html.</text>
+<text x="48.0" y="1945.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#a9bed5" >Wire colors identify features. Green numbered badges mean a supplied fixed status, supported by verification records.</text>
+<text x="48.0" y="1972.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#a9bed5" >Required: an after snapshot, passing build, and passing tests or an explicit no-tests record. The renderer does not run them.</text>
+<text x="48.0" y="2023.0" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#7be3af" >KNOT #1 / leaky-abstraction / fixed</text>
+<text x="48.0" y="2061.0" font-family="Arial, sans-serif" font-size="28" font-weight="400" fill="#f2f6fb" >Callers encode and decode stored JSON</text>
+<text x="48.0" y="2102.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#95a9c0" >DATA FLOW / arrows label what crosses each source boundary; these are not module dependency edges.</text>
+<text x="48.0" y="2155.0" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#a9bed5" >See the direct route at the top for the source handoffs.</text>
+<rect x="48" y="2175.0" width="744" height="408.0" rx="12" fill="#111e2e" stroke="#334960"/>
+<text x="72.0" y="2212.0" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#ff929a" >BEFORE / observed baseline</text>
+<text x="72.0" y="2251.0" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >Orders serializes records to JSON bytes. Reconciliation</text>
+<text x="72.0" y="2281.0" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >decodes those bytes after they pass through history.py&#x27;s</text>
+<text x="72.0" y="2311.0" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >read_raw_order_history helper and orders.py&#x27;s</text>
+<text x="72.0" y="2341.0" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >_rows_for_reconciliation facade.</text>
+<text x="72.0" y="2401.0" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#b9cde0" >Write an order</text>
+<g><title>src/orders.py:33 · Encode JSON</title>
+<rect x="72" y="2433.0" width="248" height="126" rx="10" fill="#0a111d" stroke="#647d98" stroke-width="2"/>
+<text x="86.0" y="2467.0" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#dce6f2" >Encode JSON</text>
+<text x="86.0" y="2539.0" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#a9bed5" >src/orders.py:33</text>
+</g>
+<g><title>src/storage.py:9 · Append bytes</title>
+<rect x="520" y="2433.0" width="248" height="126" rx="10" fill="#0a111d" stroke="#647d98" stroke-width="2"/>
+<text x="534.0" y="2467.0" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#dce6f2" >Append bytes</text>
+<text x="534.0" y="2539.0" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#a9bed5" >src/storage.py:9</text>
+</g>
+<path d="M 330 2496.0 H 507" stroke="#7cb9d6" stroke-width="3"/>
+<path d="M 499 2489.0 L 512 2496.0 L 499 2503.0" fill="none" stroke="#7cb9d6" stroke-width="3"/>
+<text x="340.0" y="2526.0" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#a9d5e9" >JSON bytes</text>
+<rect x="808" y="2175.0" width="744" height="408.0" rx="12" fill="#111e2e" stroke="#334960"/>
+<text x="832.0" y="2212.0" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#7be3af" >AFTER / fixed</text>
+<text x="832.0" y="2251.0" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >Orders sends records to storage; reconciliation receives</text>
+<text x="832.0" y="2281.0" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >decoded records. Storage owns both JSON operations.</text>
+<text x="832.0" y="2401.0" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#b9cde0" >Write an order</text>
+<g><title>src/orders.py:21 · Pass order record</title>
+<rect x="832" y="2433.0" width="248" height="126" rx="10" fill="#0a111d" stroke="#647d98" stroke-width="2"/>
+<text x="846.0" y="2467.0" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#dce6f2" >Pass order record</text>
+<text x="846.0" y="2539.0" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#a9bed5" >src/orders.py:21</text>
+</g>
+<g><title>src/storage.py:18 · Encode and append</title>
+<rect x="1280" y="2433.0" width="248" height="126" rx="10" fill="#0a111d" stroke="#647d98" stroke-width="2"/>
+<text x="1294.0" y="2467.0" font-family="Arial, sans-serif" font-size="24" font-weight="400" fill="#dce6f2" >Encode and append</text>
+<text x="1294.0" y="2539.0" font-family="Arial, sans-serif" font-size="15" font-weight="400" fill="#a9bed5" >src/storage.py:18</text>
+</g>
+<path d="M 1090 2496.0 H 1267" stroke="#7cb9d6" stroke-width="3"/>
+<path d="M 1259 2489.0 L 1272 2496.0 L 1259 2503.0" fill="none" stroke="#7cb9d6" stroke-width="3"/>
+<text x="1100.0" y="2526.0" font-family="Arial, sans-serif" font-size="20" font-weight="400" fill="#a9d5e9" >Order record</text>
+<text x="48.0" y="2619.0" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#77cce6" >WHY THIS HELPS</text>
+<text x="48.0" y="2650.0" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >Removing the history and order forwarding helpers leaves storage as the sole JSON-format owner. A format change can be handled there</text>
+<text x="48.0" y="2680.0" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >instead of being repeated across callers.</text>
+<text x="48.0" y="2728.0" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#77cce6" >WHAT STAYED THE SAME</text>
+<text x="48.0" y="2759.0" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >For this InMemoryStorage fixture, shared tests check the callable outputs, stored bytes and key order, validation errors, operation</text>
+<text x="48.0" y="2789.0" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >order, pending-order filtering, and reads in both snapshots.</text>
+<text x="48.0" y="2837.0" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#abc1d6" >Recorded checks supporting fixed status: tests: pass; build: pass</text>
+<text x="48.0" y="2911.0" font-family="Arial, sans-serif" font-size="18" font-weight="700" fill="#7be3af" >KNOT #2 / mixed-responsibilities / fixed</text>
+<text x="48.0" y="2949.0" font-family="Arial, sans-serif" font-size="28" font-weight="400" fill="#f2f6fb" >Price quotes detour through orders and storage</text>
+<text x="48.0" y="2990.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#95a9c0" >DATA FLOW / arrows label what crosses each source boundary; these are not module dependency edges.</text>
+<svg x="48" y="3029" class="path-comparison" xmlns="http://www.w3.org/2000/svg" width="1504" height="852.7142857142857" viewBox="0 0 1120 635" role="img" aria-labelledby="route-2-0-title route-2-0-description">
+<title id="route-2-0-title">Look up a price: Price quotes detour through orders and storage</title>
+<desc id="route-2-0-description">Every arrow is a supplied source-to-source handoff. The same owners keep their positions. Owners outside a route remain visible; crossings are layout, not extra connections.</desc>
+<rect width="1120" height="635" rx="16" fill="#0a101b"/>
+<text x="28.0" y="40.0" font-family="Arial, sans-serif" font-size="29" font-weight="400" fill="#f2f6fb" >Look up a price</text>
+<text x="28.0" y="73.0" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#b9c9db" >Follow the arrows. Numbers identify each source-to-source handoff.</text>
+<g transform="translate(0 0)">
+<g class="route-phase" data-phase="before" transform="translate(16 0)">
+<rect x="0" y="100" width="528" height="452" rx="12" fill="#101b2b" stroke="#35465d"/>
+<text x="20.0" y="134.0" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#f2f6fb" >BEFORE / 3 handoffs</text>
+<text x="20.0" y="164.0" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#f4a261" >Product ID</text>
+<defs><marker id="route-2-0-before-arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M 0 0 L 12 6 L 0 12 Z" fill="#f4a261"/></marker></defs>
+<path d="M 129 302 C 129 360.0 399 360.0 399 418" fill="none" stroke="#101b2b" stroke-width="12"/>
+<path class="route-wire" data-from="src/quotes.py" data-to="src/orders.py" d="M 129 302 C 129 360.0 399 360.0 399 418" fill="none" stroke="#f4a261" stroke-width="4" marker-end="url(#route-2-0-before-arrow)"/>
+<circle cx="188.4" cy="327.52" r="13" fill="#f4a261" stroke="#101b2b" stroke-width="3"/>
+<text x="188.4" y="332.5" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#10131b" text-anchor="middle">1</text>
+<path d="M 290 474.0 L 238 474.0" fill="none" stroke="#101b2b" stroke-width="12"/>
+<path class="route-wire" data-from="src/orders.py" data-to="src/storage.py" d="M 290 474.0 L 238 474.0" fill="none" stroke="#f4a261" stroke-width="4" marker-end="url(#route-2-0-before-arrow)"/>
+<circle cx="278.56" cy="474.0" r="13" fill="#f4a261" stroke="#101b2b" stroke-width="3"/>
+<text x="278.6" y="479.0" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#10131b" text-anchor="middle">2</text>
+<path d="M 129 418 C 129 360.0 399 360.0 399 302" fill="none" stroke="#101b2b" stroke-width="12"/>
+<path class="route-wire" data-from="src/storage.py" data-to="src/catalog.py" d="M 129 418 C 129 360.0 399 360.0 399 302" fill="none" stroke="#f4a261" stroke-width="4" marker-end="url(#route-2-0-before-arrow)"/>
+<circle cx="188.4" cy="392.48" r="13" fill="#f4a261" stroke="#101b2b" stroke-width="3"/>
+<text x="188.4" y="397.5" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#10131b" text-anchor="middle">3</text>
+<g class="route-owner" data-file="src/quotes.py" data-active="true" transform="translate(20 190)">
+<rect width="218" height="112" rx="9" fill="#0a101b" stroke="#7186a0" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#dce6f2" >Quote</text>
+<text x="14.0" y="95.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#b9c9db" >src/quotes.py:7</text>
+</g>
+<g class="route-owner" data-file="src/orders.py" data-active="true" transform="translate(290 418)">
+<rect width="218" height="112" rx="9" fill="#0a101b" stroke="#7186a0" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#dce6f2" >Order helper</text>
+<text x="14.0" y="95.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#b9c9db" >src/orders.py:8</text>
+</g>
+<g class="route-owner" data-file="src/storage.py" data-active="true" transform="translate(20 418)">
+<rect width="218" height="112" rx="9" fill="#0a101b" stroke="#7186a0" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#dce6f2" >Storage helper</text>
+<text x="14.0" y="95.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#b9c9db" >src/storage.py:18</text>
+</g>
+<g class="route-owner" data-file="src/catalog.py" data-active="true" transform="translate(290 190)">
+<rect width="218" height="112" rx="9" fill="#0a101b" stroke="#7186a0" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#dce6f2" >Catalog lookup</text>
+<text x="14.0" y="95.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#b9c9db" >src/catalog.py:4</text>
+</g>
+</g>
+<g class="route-phase" data-phase="after" transform="translate(576 0)">
+<rect x="0" y="100" width="528" height="452" rx="12" fill="#101b2b" stroke="#35465d"/>
+<text x="20.0" y="134.0" font-family="Arial, sans-serif" font-size="23" font-weight="700" fill="#f2f6fb" >AFTER / 1 handoff</text>
+<text x="20.0" y="164.0" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#f4a261" >Product ID</text>
+<defs><marker id="route-2-0-after-arrow" viewBox="0 0 12 12" refX="10" refY="6" markerWidth="4" markerHeight="4" orient="auto-start-reverse"><path d="M 0 0 L 12 6 L 0 12 Z" fill="#f4a261"/></marker></defs>
+<path d="M 238 246.0 L 290 246.0" fill="none" stroke="#101b2b" stroke-width="12"/>
+<path class="route-wire" data-from="src/quotes.py" data-to="src/catalog.py" d="M 238 246.0 L 290 246.0" fill="none" stroke="#f4a261" stroke-width="4" marker-end="url(#route-2-0-after-arrow)"/>
+<circle cx="249.44" cy="246.0" r="13" fill="#f4a261" stroke="#101b2b" stroke-width="3"/>
+<text x="249.4" y="251.0" font-family="Arial, sans-serif" font-size="15" font-weight="700" fill="#10131b" text-anchor="middle">1</text>
+<g class="route-owner" data-file="src/quotes.py" data-active="true" transform="translate(20 190)">
+<rect width="218" height="112" rx="9" fill="#0a101b" stroke="#7186a0" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#dce6f2" >Quote</text>
+<text x="14.0" y="95.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#b9c9db" >src/quotes.py:10</text>
+</g>
+<g class="route-owner" data-file="src/orders.py" data-active="false" transform="translate(290 418)">
+<rect width="218" height="112" rx="9" fill="#0a101b" stroke="#435267" stroke-dasharray="5 5" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#8495aa" >src/orders.py</text>
+<text x="14.0" y="93.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#8495aa" >outside this route</text>
+</g>
+<g class="route-owner" data-file="src/storage.py" data-active="false" transform="translate(20 418)">
+<rect width="218" height="112" rx="9" fill="#0a101b" stroke="#435267" stroke-dasharray="5 5" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#8495aa" >src/storage.py</text>
+<text x="14.0" y="93.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#8495aa" >outside this route</text>
+</g>
+<g class="route-owner" data-file="src/catalog.py" data-active="true" transform="translate(290 190)">
+<rect width="218" height="112" rx="9" fill="#0a101b" stroke="#7186a0" stroke-width="2"/>
+<text x="14.0" y="31.0" font-family="Arial, sans-serif" font-size="22" font-weight="400" fill="#dce6f2" >Catalog lookup</text>
+<text x="14.0" y="95.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#b9c9db" >src/catalog.py:4</text>
+</g>
+</g>
+<text x="28.0" y="587.0" font-family="Arial, sans-serif" font-size="19" font-weight="400" fill="#dce6f2" >3 handoffs before → 1 after. Wire color stays the same in both panels.</text>
+<text x="28.0" y="617.0" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#a9bed5" >Positions stay fixed across panels. Only the supplied handoffs are drawn.</text>
+</g>
+</svg>
+<rect x="48" y="3905.7" width="744" height="148.0" rx="12" fill="#111e2e" stroke="#334960"/>
+<text x="72.0" y="3942.7" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#ff929a" >BEFORE / observed baseline</text>
+<text x="72.0" y="3981.7" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >Quote sends the product ID through an order helper and a</text>
+<text x="72.0" y="4011.7" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >storage helper before catalog lookup.</text>
+<rect x="808" y="3905.7" width="744" height="148.0" rx="12" fill="#111e2e" stroke="#334960"/>
+<text x="832.0" y="3942.7" font-family="Arial, sans-serif" font-size="22" font-weight="700" fill="#7be3af" >AFTER / fixed</text>
+<text x="832.0" y="3981.7" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >Quote passes the product ID directly to catalog.price_for.</text>
+<text x="48.0" y="4089.7" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#77cce6" >WHY THIS HELPS</text>
+<text x="48.0" y="4120.7" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >The pricing feature no longer crosses order-creation or storage code to read a catalog price.</text>
+<text x="48.0" y="4168.7" font-family="Arial, sans-serif" font-size="17" font-weight="700" fill="#77cce6" >WHAT STAYED THE SAME</text>
+<text x="48.0" y="4199.7" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >Shared tests check quote output and validation errors, plus order output, exact stored bytes, key order, operation order, and</text>
+<text x="48.0" y="4229.7" font-family="Arial, sans-serif" font-size="21" font-weight="400" fill="#dce6f2" >reconciliation behavior in both snapshots.</text>
+<text x="48.0" y="4277.7" font-family="Arial, sans-serif" font-size="18" font-weight="400" fill="#abc1d6" >Recorded checks supporting fixed status: tests: pass; build: pass</text>
+<text x="48.0" y="4351.7" font-family="Arial, sans-serif" font-size="17" font-weight="400" fill="#95a9c0" >Paths and excerpts are supplied evidence. Inspect full source excerpts, revisions and verification records in untangle.html.</text>
+</svg>

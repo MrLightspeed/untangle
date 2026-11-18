@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="104" height="28" viewBox="0 0 104 28" role="img" aria-labelledby="title">
+  <title id="title">Sponsor Untangle</title>
+  <rect width="104" height="28" rx="5" fill="#0b1220"/>
+  <path d="M14 20 8.7 14.7a3.6 3.6 0 0 1 5.3-4.9 3.6 3.6 0 0 1 5.3 4.9z" fill="#f9a8d4"/>
+  <text x="64" y="18" fill="#f9a8d4" font-family="Verdana,DejaVu Sans,sans-serif" font-size="10" font-weight="700" text-anchor="middle">SPONSOR</text>
+</svg>

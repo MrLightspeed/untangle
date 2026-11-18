@@ -1,0 +1,7 @@
+interface:
+  display_name: "Untangle"
+  short_description: "Map code knots and refactor with verified rollback"
+  default_prompt:
+    "Use $untangle to map and untangle this repository on a new local branch,
+    verify each knot, and show the actual before/after comparison without
+    pushing or merging."

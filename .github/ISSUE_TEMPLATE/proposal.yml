@@ -1,0 +1,27 @@
+name: Improvement proposal
+description: Discuss an improvement before investing in a patch.
+title: "[Proposal]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem and concrete use case
+      description: Who is affected, and what is difficult today?
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Smallest useful change
+      description: >
+        Describe the outcome, relevant alternatives, and how the change could be
+        checked.
+    validations:
+      required: true
+  - type: textarea
+    id: contribution
+    attributes:
+      label: Contribution offer
+      description: >
+        Optional fork or commit link. Only collaborators can create pull
+        requests. Agree on scope before doing substantial work.

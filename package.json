@@ -1,0 +1,26 @@
+{
+  "name": "untangle-skill",
+  "version": "0.1.0",
+  "private": true,
+  "packageManager": "bun@1.4.4",
+  "engines": {
+    "node": ">=22.20.0"
+  },
+  "overrides": {
+    "katex": "0.18.2"
+  },
+  "scripts": {
+    "format": "node scripts/format.mjs --write",
+    "format:check": "node scripts/format.mjs --check",
+    "check:package": "node scripts/check-package.mjs",
+    "test": "node scripts/run-checks.mjs test",
+    "check": "node scripts/run-checks.mjs check",
+    "lint": "node scripts/lint.mjs"
+  },
+  "devDependencies": {
+    "bun": "1.4.4-canary.20261116.1",
+    "jsonc-parser": "3.3.1",
+    "markdownlint": "0.42.1",
+    "yaml": "2.9.1"
+  }
+}

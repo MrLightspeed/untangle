@@ -1,0 +1,23 @@
+name: Installation or usage help
+description: Ask a focused question about using Untangle.
+title: "[Help]: "
+body:
+  - type: input
+    id: environment
+    attributes:
+      label: Environment and installation method
+      description: >
+        Include the agent and version, operating system, Python version,
+        Untangle release or commit, and installation method. Include the Skills
+        CLI version if used. For npx, include Node.js and npm versions.
+    validations:
+      required: true
+  - type: textarea
+    id: question
+    attributes:
+      label: Question and what you tried
+      description: >
+        Include a small example and remove private data. Replies depend on
+        maintainer and community capacity.
+    validations:
+      required: true

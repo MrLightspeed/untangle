@@ -1,0 +1,505 @@
+{
+  "schema_version": 1,
+  "title": "Untangle / Two checkout knots untied",
+  "scope": "Six runtime files in the before fixture and five after: checkout, price quotes, and pending-order reconciliation.",
+  "features": [
+    { "id": "checkout", "label": "Place an order" },
+    { "id": "quote", "label": "Quote a price" },
+    { "id": "reconcile", "label": "Reconcile pending orders" }
+  ],
+  "knots": [
+    {
+      "id": 1,
+      "category": "leaky-abstraction",
+      "severity": "medium",
+      "title": "Callers encode and decode stored JSON",
+      "features": ["checkout", "reconcile"],
+      "locations": [
+        { "path": "src/orders.py", "line": 33 },
+        { "path": "src/reconcile.py", "line": 9 },
+        { "path": "src/history.py", "line": 1 },
+        { "path": "src/orders.py", "line": 12 }
+      ],
+      "evidence": "Before, place_order assembles and serializes the order, while pending_orders decodes raw rows passed through read_raw_order_history in history.py and _rows_for_reconciliation in orders.py. After, InMemoryStorage.write_order and read_orders own encoding and decoding. Shared checks confirm the same callable outputs, stored bytes, key order, errors, read order, and validation effects for this fixture. The price-lookup detour is recorded as knot #2.",
+      "remedy": "Give the storage owner write_order and read_orders operations; remove history.py's read_raw_order_history pass-through and orders.py's _rows_for_reconciliation facade as callers hand JSON ownership to storage, while preserving the raw row APIs and serialized format.",
+      "status": "fixed",
+      "comparison": {
+        "before": {
+          "summary": "Orders serializes records to JSON bytes. Reconciliation decodes those bytes after they pass through history.py's read_raw_order_history helper and orders.py's _rows_for_reconciliation facade.",
+          "snippets": [
+            {
+              "path": "src/orders.py",
+              "line": 33,
+              "code": "    raw = json.dumps(order, separators=(\",\", \":\")).encode(\"utf-8\")\n    storage.append(raw)"
+            },
+            {
+              "path": "src/reconcile.py",
+              "line": 8,
+              "code": "    for raw in _rows_for_reconciliation(storage):\n        order = json.loads(raw)\n        if order[\"status\"] == \"pending\":\n            orders.append(order)"
+            },
+            {
+              "path": "src/storage.py",
+              "line": 9,
+              "code": "    def append(self, raw: bytes) -> None:\n        self.operations.append(\"append\")\n        self._rows.append(bytes(raw))"
+            },
+            {
+              "path": "src/storage.py",
+              "line": 13,
+              "code": "    def read_all(self) -> tuple[bytes, ...]:\n        self.operations.append(\"read_all\")\n        return tuple(self._rows)"
+            },
+            {
+              "path": "src/history.py",
+              "line": 1,
+              "code": "def read_raw_order_history(storage: object) -> tuple[bytes, ...]:\n    return storage.read_all()"
+            },
+            {
+              "path": "src/orders.py",
+              "line": 12,
+              "code": "def _rows_for_reconciliation(storage: object) -> tuple[bytes, ...]:\n    return read_raw_order_history(storage)"
+            }
+          ],
+          "paths": [
+            {
+              "id": "write-order",
+              "label": "Write an order",
+              "from": { "snippet": 1, "label": "Encode JSON" },
+              "to": { "snippet": 3, "label": "Append bytes" },
+              "value": "JSON bytes"
+            },
+            {
+              "id": "read-pending-orders",
+              "label": "Read pending orders",
+              "from": { "snippet": 4, "label": "Return raw rows" },
+              "via": [
+                { "snippet": 5, "label": "History helper" },
+                { "snippet": 6, "label": "Order helper" }
+              ],
+              "to": { "snippet": 2, "label": "Decode and filter" },
+              "value": "JSON bytes"
+            }
+          ]
+        },
+        "after": {
+          "summary": "Orders sends records to storage; reconciliation receives decoded records. Storage owns both JSON operations.",
+          "snippets": [
+            {
+              "path": "src/orders.py",
+              "line": 21,
+              "code": "    storage.write_order(order)"
+            },
+            {
+              "path": "src/reconcile.py",
+              "line": 3,
+              "code": "    for order in storage.read_orders():\n        if order[\"status\"] == \"pending\":\n            orders.append(order)"
+            },
+            {
+              "path": "src/storage.py",
+              "line": 18,
+              "code": "    def write_order(self, order: dict[str, object]) -> bytes:\n        raw = json.dumps(order, separators=(\",\", \":\")).encode(\"utf-8\")\n        self.append(raw)\n        return raw"
+            },
+            {
+              "path": "src/storage.py",
+              "line": 23,
+              "code": "    def read_orders(self) -> Iterator[dict[str, object]]:\n        for raw in self.read_all():\n            yield json.loads(raw)"
+            }
+          ],
+          "paths": [
+            {
+              "id": "write-order",
+              "label": "Write an order",
+              "from": { "snippet": 1, "label": "Pass order record" },
+              "to": { "snippet": 3, "label": "Encode and append" },
+              "value": "Order record"
+            },
+            {
+              "id": "read-pending-orders",
+              "label": "Read pending orders",
+              "from": { "snippet": 4, "label": "Decode stored rows" },
+              "to": { "snippet": 2, "label": "Filter pending orders" },
+              "value": "Order records"
+            }
+          ]
+        },
+        "benefit": "Removing the history and order forwarding helpers leaves storage as the sole JSON-format owner. A format change can be handled there instead of being repeated across callers.",
+        "preserved": "For this InMemoryStorage fixture, shared tests check the callable outputs, stored bytes and key order, validation errors, operation order, pending-order filtering, and reads in both snapshots."
+      },
+      "verification": [
+        {
+          "kind": "tests",
+          "command": "python scripts/check-example.py",
+          "result": "pass",
+          "note": "Runs the same seven behavior tests in separate processes against before and after. Verified with Python 3.14.10."
+        },
+        {
+          "kind": "build",
+          "command": "python scripts/check-example.py",
+          "result": "pass",
+          "note": "Compiles all before and after runtime files in memory and imports them through the isolated behavior checks. Verified with Python 3.14.10."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "category": "mixed-responsibilities",
+      "severity": "medium",
+      "title": "Price quotes detour through orders and storage",
+      "features": ["quote"],
+      "locations": [
+        { "path": "src/quotes.py", "line": 7 },
+        { "path": "src/orders.py", "line": 8 },
+        { "path": "src/storage.py", "line": 18 },
+        { "path": "src/catalog.py", "line": 4 }
+      ],
+      "evidence": "Before, quote imports an order helper at runtime. That helper forwards the product ID to storage, which delegates to catalog.price_for. The quote feature crosses order-creation and storage code for a catalog lookup. After, quote calls catalog.price_for directly. Shared checks preserve the same quote results, errors, order outputs, stored bytes, and storage-operation order.",
+      "remedy": "Have quote call catalog.price_for directly and remove the price-forwarding helpers from orders.py and storage.py.",
+      "status": "fixed",
+      "comparison": {
+        "before": {
+          "summary": "Quote sends the product ID through an order helper and a storage helper before catalog lookup.",
+          "snippets": [
+            {
+              "path": "src/quotes.py",
+              "line": 7,
+              "code": "    from .orders import _order_unit_price\n\n    unit_price = _order_unit_price(product_id)"
+            },
+            {
+              "path": "src/orders.py",
+              "line": 8,
+              "code": "def _order_unit_price(product_id: str) -> float:\n    return _catalog_price_for(product_id)"
+            },
+            {
+              "path": "src/storage.py",
+              "line": 18,
+              "code": "def _catalog_price_for(product_id: str) -> float:\n    return price_for(product_id)"
+            },
+            {
+              "path": "src/catalog.py",
+              "line": 4,
+              "code": "def price_for(product_id: str) -> float:\n    try:\n        return PRICES[product_id]\n    except KeyError:\n        raise KeyError(f\"unknown product: {product_id}\") from None"
+            }
+          ],
+          "paths": [
+            {
+              "id": "price-lookup",
+              "label": "Look up a price",
+              "from": { "snippet": 1, "label": "Quote" },
+              "via": [
+                { "snippet": 2, "label": "Order helper" },
+                { "snippet": 3, "label": "Storage helper" }
+              ],
+              "to": { "snippet": 4, "label": "Catalog lookup" },
+              "value": "Product ID"
+            }
+          ]
+        },
+        "after": {
+          "summary": "Quote passes the product ID directly to catalog.price_for.",
+          "snippets": [
+            {
+              "path": "src/quotes.py",
+              "line": 10,
+              "code": "    unit_price = price_for(product_id)"
+            },
+            {
+              "path": "src/catalog.py",
+              "line": 4,
+              "code": "def price_for(product_id: str) -> float:\n    try:\n        return PRICES[product_id]\n    except KeyError:\n        raise KeyError(f\"unknown product: {product_id}\") from None"
+            }
+          ],
+          "paths": [
+            {
+              "id": "price-lookup",
+              "label": "Look up a price",
+              "from": { "snippet": 1, "label": "Quote" },
+              "to": { "snippet": 2, "label": "Catalog lookup" },
+              "value": "Product ID"
+            }
+          ]
+        },
+        "benefit": "The pricing feature no longer crosses order-creation or storage code to read a catalog price.",
+        "preserved": "Shared tests check quote output and validation errors, plus order output, exact stored bytes, key order, operation order, and reconciliation behavior in both snapshots."
+      },
+      "verification": [
+        {
+          "kind": "tests",
+          "command": "python scripts/check-example.py",
+          "result": "pass",
+          "note": "Runs the same seven behavior tests in separate processes against before and after. Verified with Python 3.14.10."
+        },
+        {
+          "kind": "build",
+          "command": "python scripts/check-example.py",
+          "result": "pass",
+          "note": "Compiles all before and after runtime files in memory and imports them through the isolated behavior checks. Verified with Python 3.14.10."
+        }
+      ]
+    }
+  ],
+  "before": {
+    "revision": "sha256:ae42184670712f47ad3ea903ff7d659738dc1f046ebb4d627fe2351720a8ee1a",
+    "coverage": "Synthetic fixture baseline. Checkout, price-quote, and reconciliation entry points are traced across all six before runtime files. The quote price path crosses quotes.py, orders.py, storage.py, and catalog.py. Reconciliation reaches storage through the orders.py facade and history.py pass-through. The fixture has no separate runtime configuration, database, web framework, or deployment path.",
+    "files": [
+      "src/catalog.py",
+      "src/history.py",
+      "src/orders.py",
+      "src/quotes.py",
+      "src/reconcile.py",
+      "src/storage.py"
+    ],
+    "edges": [
+      {
+        "feature": "checkout",
+        "file": "src/orders.py",
+        "evidence": [
+          {
+            "path": "src/orders.py",
+            "line": 16,
+            "kind": "direct",
+            "note": "place_order is the checkout entry point."
+          }
+        ]
+      },
+      {
+        "feature": "checkout",
+        "file": "src/quotes.py",
+        "evidence": [
+          {
+            "path": "src/orders.py",
+            "line": 17,
+            "kind": "transitive",
+            "note": "place_order validates and calculates the order through quote."
+          }
+        ]
+      },
+      {
+        "feature": "checkout",
+        "file": "src/catalog.py",
+        "evidence": [
+          {
+            "path": "src/storage.py",
+            "line": 19,
+            "kind": "transitive",
+            "note": "storage resolves the price on checkout's quote path."
+          }
+        ]
+      },
+      {
+        "feature": "checkout",
+        "file": "src/storage.py",
+        "evidence": [
+          {
+            "path": "src/orders.py",
+            "line": 34,
+            "kind": "transitive",
+            "note": "place_order appends the JSON bytes through the raw storage API."
+          }
+        ]
+      },
+      {
+        "feature": "quote",
+        "file": "src/quotes.py",
+        "evidence": [
+          {
+            "path": "src/quotes.py",
+            "line": 1,
+            "kind": "direct",
+            "note": "quote is the price-quote entry point."
+          }
+        ]
+      },
+      {
+        "feature": "quote",
+        "file": "src/orders.py",
+        "evidence": [
+          {
+            "path": "src/quotes.py",
+            "line": 9,
+            "kind": "transitive",
+            "note": "quote requests the unit price through the order helper."
+          }
+        ]
+      },
+      {
+        "feature": "quote",
+        "file": "src/storage.py",
+        "evidence": [
+          {
+            "path": "src/orders.py",
+            "line": 9,
+            "kind": "transitive",
+            "note": "_order_unit_price forwards the product ID to storage."
+          }
+        ]
+      },
+      {
+        "feature": "quote",
+        "file": "src/catalog.py",
+        "evidence": [
+          {
+            "path": "src/storage.py",
+            "line": 19,
+            "kind": "transitive",
+            "note": "_catalog_price_for resolves the product price through catalog.price_for."
+          }
+        ]
+      },
+      {
+        "feature": "reconcile",
+        "file": "src/reconcile.py",
+        "evidence": [
+          {
+            "path": "src/reconcile.py",
+            "line": 16,
+            "kind": "direct",
+            "note": "pending_total is the reconciliation entry point."
+          }
+        ]
+      },
+      {
+        "feature": "reconcile",
+        "file": "src/orders.py",
+        "evidence": [
+          {
+            "path": "src/reconcile.py",
+            "line": 8,
+            "kind": "transitive",
+            "note": "pending_orders requests raw rows through the order facade."
+          }
+        ]
+      },
+      {
+        "feature": "reconcile",
+        "file": "src/history.py",
+        "evidence": [
+          {
+            "path": "src/orders.py",
+            "line": 13,
+            "kind": "transitive",
+            "note": "the order facade reads raw history through read_raw_order_history."
+          }
+        ]
+      },
+      {
+        "feature": "reconcile",
+        "file": "src/storage.py",
+        "evidence": [
+          {
+            "path": "src/history.py",
+            "line": 2,
+            "kind": "transitive",
+            "note": "history returns the raw rows from storage.read_all."
+          }
+        ]
+      }
+    ]
+  },
+  "after": {
+    "revision": "sha256:5ef5bab0ad831d7be32f492460aa318fed6a5ef66ba35fcdcb7c49a2b31287fe",
+    "coverage": "Synthetic fixture final snapshot. The same three entry points and five runtime files are traced. Quote reads prices directly from catalog.py, and storage owns JSON encoding and decoding. The fixture has no separate runtime configuration, database, web framework, or deployment path.",
+    "files": [
+      "src/catalog.py",
+      "src/orders.py",
+      "src/quotes.py",
+      "src/reconcile.py",
+      "src/storage.py"
+    ],
+    "edges": [
+      {
+        "feature": "checkout",
+        "file": "src/orders.py",
+        "evidence": [
+          {
+            "path": "src/orders.py",
+            "line": 4,
+            "kind": "direct",
+            "note": "place_order remains the checkout entry point."
+          }
+        ]
+      },
+      {
+        "feature": "checkout",
+        "file": "src/quotes.py",
+        "evidence": [
+          {
+            "path": "src/orders.py",
+            "line": 5,
+            "kind": "transitive",
+            "note": "place_order validates and calculates the order through quote."
+          }
+        ]
+      },
+      {
+        "feature": "checkout",
+        "file": "src/catalog.py",
+        "evidence": [
+          {
+            "path": "src/quotes.py",
+            "line": 10,
+            "kind": "transitive",
+            "note": "quote reads the product price from the catalog."
+          }
+        ]
+      },
+      {
+        "feature": "checkout",
+        "file": "src/storage.py",
+        "evidence": [
+          {
+            "path": "src/orders.py",
+            "line": 21,
+            "kind": "transitive",
+            "note": "place_order passes the record through storage.write_order."
+          }
+        ]
+      },
+      {
+        "feature": "quote",
+        "file": "src/quotes.py",
+        "evidence": [
+          {
+            "path": "src/quotes.py",
+            "line": 4,
+            "kind": "direct",
+            "note": "quote remains the price-quote entry point."
+          }
+        ]
+      },
+      {
+        "feature": "quote",
+        "file": "src/catalog.py",
+        "evidence": [
+          {
+            "path": "src/quotes.py",
+            "line": 10,
+            "kind": "transitive",
+            "note": "quote reads the product price from the catalog."
+          }
+        ]
+      },
+      {
+        "feature": "reconcile",
+        "file": "src/reconcile.py",
+        "evidence": [
+          {
+            "path": "src/reconcile.py",
+            "line": 9,
+            "kind": "direct",
+            "note": "pending_total remains the reconciliation entry point."
+          }
+        ]
+      },
+      {
+        "feature": "reconcile",
+        "file": "src/storage.py",
+        "evidence": [
+          {
+            "path": "src/reconcile.py",
+            "line": 3,
+            "kind": "transitive",
+            "note": "pending_orders reads decoded records through storage.read_orders."
+          }
+        ]
+      }
+    ]
+  }
+}

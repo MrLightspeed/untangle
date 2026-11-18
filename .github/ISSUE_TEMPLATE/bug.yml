@@ -1,0 +1,36 @@
+name: Bug report
+description: Report a reproducible problem with the skill or renderer.
+title: "[Bug]: "
+body:
+  - type: markdown
+    attributes:
+      value: >
+        Search existing issues first. Remove private source and credentials. Use
+        SECURITY.md to report vulnerabilities.
+  - type: input
+    id: environment
+    attributes:
+      label: Version and environment
+      description: >
+        Include the Untangle release or commit, agent and version, operating
+        system, and Python version.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: >
+        Share the prompt or command and a small sanitized input. Say whether the
+        problem is a renderer failure or unexpected agent behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected and actual outcome
+      description: >
+        Describe what happened, include any relevant error message, and say what
+        you expected instead.
+    validations:
+      required: true

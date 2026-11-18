@@ -1,0 +1,21 @@
+# Dependencies and Python caches.
+node_modules/
+__pycache__/
+*.py[cod]
+.venv/
+
+# Local environment files.
+.env
+.env.*
+
+# Local research, reports, and scratch work.
+/docs/
+/work/
+/.serena/
+/agent_ergonomics_audit/
+
+# Archives and operating-system files do not belong in the repository.
+*.zip
+.DS_Store
+Thumbs.db
+Desktop.ini
